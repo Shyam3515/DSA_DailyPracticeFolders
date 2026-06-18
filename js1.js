@@ -332,3 +332,53 @@ console.log(searchRotatedArray([4, 5, 6, 7, 0, 1, 2], 0)); // Output: 4
 
 //////////////////////////////////////////////////////////////////////////////
 // Day - 7;
+//Bubble Sort
+let sortArr = [5, 2, 3, 4, 1];
+function bubbleSort(arr) {
+  for (let i = 0; i < arr.length - 1; i++) {
+    for (let j = 0; j < arr.length - 1 - i; j++) {
+      //adjacent elements are compared and swapped if they are in the wrong order
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+      }
+    }
+  }
+  return arr;
+}
+console.log(bubbleSort(sortArr));
+
+//Check if array is sorted
+function isSorted(arr) {
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i] > arr[i + 1]) {
+      return false;
+    }
+  }
+  return true;
+}
+console.log(isSorted([1, 2, 3, 4, 5])); // true
+console.log(isSorted([1, 3, 2, 4, 5])); // false
+
+// Sliding Window: Maximum sum subarray of size K
+let sArr = [23, 1, 3, 3, 12, 3, 3, 4, 33, 1, 4, 35, 454, 45];
+let k = 3,
+  sum = 0;
+
+//here we are calculating the sum of the first 'k' elements of the array to initialize our sliding window. This sum will serve as the starting point for finding the maximum sum of any subarray of size 'k'.
+for (let i = 0; i < k; i++) {
+  sum += sArr[i];
+}
+let maxSum = sum;
+let start = 0;
+
+// Here we omit the first element of the previous window (sArr[i - k]) and add the next element in the array (sArr[i]) to the current sum.
+for (let i = k; i < sArr.length; i++) {
+  sum += sArr[i] - sArr[i - k];
+  if (sum > maxSum) {
+    maxSum = sum;
+    start = i - k + 1;
+  }
+}
+
+console.log("Max Sum:", maxSum);
+console.log("Window:", start, "=>", start + k - 1);
